@@ -11,6 +11,12 @@ body {
     background-color: black;
     font-size: 1.6rem;
     color: yellow;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    font-family: 'Bangers', cursive;
+    letter-spacing: 3px;
 }
 
 button {
@@ -76,6 +82,11 @@ section article {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+}
+
+section article:hover {
+    background-color: #666;
 }
 
 section h1 {
