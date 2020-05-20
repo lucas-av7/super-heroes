@@ -55,43 +55,29 @@ let marvelDownloaded = false;
 let dcDownloaded = false;
 
 function downloadHeroes(publisher) {
-    if (publisher === 'marvel') {
-        if(marvelDownloaded) return;
-        for(let i = 0; i < marvelHeroes.length; i++) {
-            let heroArticle = document.createElement('article');
-            let heroImg = document.createElement('img');
-            heroImg.setAttribute('src', marvelHeroes[i].images.sm);
-            heroImg.setAttribute('width', '160px');
-            let paragraph = document.createElement('p');
-            paragraph.innerHTML = 
-            `Name: ${marvelHeroes[i].name} <br>
-            Gender: ${marvelHeroes[i].appearance.gender} <br>
-            Race: ${marvelHeroes[i].appearance.race === null ? 'Unknow' : marvelHeroes[i].appearance.race}`
-            heroArticle.appendChild(heroImg);
-            heroArticle.appendChild(paragraph);
-            marvelSection.appendChild(heroArticle);
-        }
-        
-        marvelDownloaded = true;
+    let arrayHero = publisher === 'marvel' ? marvelHeroes : publisher === 'dc' ? dcHeroes : '';
+    let section = publisher === 'marvel' ? marvelSection : publisher === 'dc' ? dcSection : '';
+
+    if((marvelDownloaded && publisher === 'marvel') || dcDownloaded && publisher === 'dc') return;
+
+    for(let i = 0; i < arrayHero.length; i++) {
+        let heroArticle = document.createElement('article');
+        let heroImg = document.createElement('img');
+        heroImg.setAttribute('src', arrayHero[i].images.sm);
+        heroImg.setAttribute('width', '160px');
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = 
+        `Name: ${arrayHero[i].name} <br>
+        Gender: ${arrayHero[i].appearance.gender} <br>
+        Race: ${arrayHero[i].appearance.race === null ? 'Unknow' : arrayHero[i].appearance.race}`
+        heroArticle.appendChild(heroImg);
+        heroArticle.appendChild(paragraph);
+        section.appendChild(heroArticle);
     }
 
-    else if (publisher === 'dc') {
-        if(dcDownloaded) return;
-        for(let j = 0; j < dcHeroes.length; j++) {
-            let heroArticle = document.createElement('article');
-            let heroImg = document.createElement('img');
-            heroImg.setAttribute('src', dcHeroes[j].images.sm);
-            heroImg.setAttribute('width', '160px');
-            let paragraph = document.createElement('p');
-            paragraph.innerHTML = 
-            `Name: ${dcHeroes[j].name} <br>
-            Gender: ${dcHeroes[j].appearance.gender} <br>
-            Race: ${dcHeroes[j].appearance.race === null ? 'Unknow' : dcHeroes[j].appearance.race}`
-            heroArticle.appendChild(heroImg);
-            heroArticle.appendChild(paragraph);
-            dcSection.appendChild(heroArticle);
-        }
-        
+    if(publisher === 'marvel') {
+        marvelDownloaded = true;
+    } else if(publisher === 'dc') {
         dcDownloaded = true;
     }
 }
