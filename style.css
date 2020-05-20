@@ -2,9 +2,94 @@ html {
     font-size: 62.5%;
 }
 
-body {
+body, h1 {
     margin: 0;
     padding: 0;
+}
+
+body {
     background-color: black;
     font-size: 1.6rem;
+    color: yellow;
+}
+
+button {
+    width: 200px;
+    height: 50px;
+    background-color: yellow;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-size: 2.0rem;
+    margin-left: 10px;
+}
+
+button:active {
+    background-color: rgb(219, 219, 29);
+}
+
+button:focus {
+    outline: none;
+}
+
+header {
+    display: flex;
+    width: 95%;
+    max-width: 1000px;
+    margin: 0 auto;
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid yellow;
+}
+
+main {
+    display: flex;
+    width: 95%;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.allMarvelHeroes, .allDcHeroes {
+    display: none;
+    width: 95%;
+    max-width: 1000px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.on {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+section article {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid yellow;
+    height: 320px;
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+section h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 4.0rem;
+}
+
+section article p {
+    text-align: center;
+}
+
+.initialText {
+    text-align: center;
+    width: 100%;
+    margin-top: 100px;
 }
