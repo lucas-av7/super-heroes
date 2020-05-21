@@ -60,11 +60,10 @@ main {
     margin-top: 50px;
 }
 
-.allMarvelHeroes, .allDcHeroes {
+.allMarvelHeroes, .allDcHeroes, .heroProfile {
     display: none;
     width: 95%;
     max-width: 1000px;
-    height: 300px;
     margin: 0 auto;
 }
 
@@ -79,7 +78,7 @@ section article {
     margin: 10px;
     padding: 10px;
     border: 2px solid yellow;
-    height: 320px;
+    height: 350px;
     width: 250px;
     display: flex;
     flex-direction: column;
@@ -88,8 +87,9 @@ section article {
     cursor: pointer;
 }
 
-section article:hover {
-    background-color: #666;
+section article button {
+    height: 30px;
+    width: 130px;
 }
 
 section h1 {

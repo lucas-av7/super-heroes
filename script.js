@@ -6,6 +6,7 @@ let dcHeroes = [];
 let marvelSection = document.querySelector('.allMarvelHeroes');
 let dcSection = document.querySelector('.allDcHeroes');
 let initialText = document.querySelector('.initialText');
+let heroProfleSection = document.querySelector('.heroProfile');
 
 
 /* Recebendo os dados JSON */
@@ -41,11 +42,13 @@ function showSection(e) {
     if(classButton === 'marvelHeroes') {
         dcSection.classList.toggle('on', false);
         marvelSection.classList.toggle('on', true);
+        heroProfleSection.classList.toggle('on', false);
         downloadHeroes('marvel');
 
     } else if (classButton === 'dcHeroes') {
         marvelSection.classList.toggle('on', false);
         dcSection.classList.toggle('on', true);
+        heroProfleSection.classList.toggle('on', false);
         downloadHeroes('dc');
 
     }
@@ -106,8 +109,14 @@ function createHeroes(arrayHero, section) {
         `Name: ${arrayHero[indice].name} <br>
         Gender: ${arrayHero[indice].appearance.gender} <br>
         Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        let button = document.createElement('button');
+        button.textContent = 'See profile';
+        button.setAttribute('publisher', section === marvelSection ? 'marvel' : section === dcSection ? 'dc' : '');
+        button.setAttribute('indice',indice);
+        button.addEventListener('click', profileHero);
         heroArticle.appendChild(heroImg);
         heroArticle.appendChild(paragraph);
+        heroArticle.appendChild(button);
         section.appendChild(heroArticle);
 
         indice++;
@@ -161,8 +170,14 @@ function addHeroes(e) {
         `Name: ${arrayHero[indice].name} <br>
         Gender: ${arrayHero[indice].appearance.gender} <br>
         Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        let button = document.createElement('button');
+        button.textContent = 'See profile';
+        button.setAttribute('publisher', section === marvelSection ? 'marvel' : section === dcSection ? 'dc' : '');
+        button.setAttribute('indice',indice);
+        button.addEventListener('click', profileHero);
         heroArticle.appendChild(heroImg);
         heroArticle.appendChild(paragraph);
+        heroArticle.appendChild(button);
         section.appendChild(heroArticle);
 
         indice++;
@@ -183,3 +198,30 @@ let buttonAddMarvel = document.querySelector('.addMarvel');
 let buttonAddDC = document.querySelector('.addDC');
 buttonAddMarvel.addEventListener('click', addHeroes);
 buttonAddDC.addEventListener('click', addHeroes);
+
+function profileHero(e) {
+    let indice = e.target.getAttribute('indice');
+    let publisher = e.target.getAttribute('publisher');
+    let arrayHero = publisher === 'marvel' ? marvelHeroes : publisher === 'dc' ? dcHeroes : '';
+
+    let heroArticle = document.createElement('article');
+        let heroImg = document.createElement('img');
+        heroImg.setAttribute('src', arrayHero[indice].images.sm);
+        heroImg.setAttribute('width', '160px');
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = 
+        `Name: ${arrayHero[indice].name} <br>
+        Gender: ${arrayHero[indice].appearance.gender} <br>
+        Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        heroArticle.appendChild(heroImg);
+        heroArticle.appendChild(paragraph);
+        heroProfleSection.appendChild(heroArticle);
+
+    heroProfleSection.classList.toggle('on', true);
+
+    if(publisher === 'marvel') {
+        marvelSection.classList.toggle('on', false);
+    } else if(publisher === 'dc') {
+        dcSection.classList.toggle('on', false);
+    }
+}
