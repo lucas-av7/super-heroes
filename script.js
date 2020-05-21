@@ -61,15 +61,14 @@ function downloadHeroes(publisher) {
 
     if((marvelDownloaded && publisher === 'marvel') || dcDownloaded && publisher === 'dc') return;
 
-
-    createHeroes(arrayHero, section);
-
     if(publisher === 'marvel') {
         marvelDownloaded = true;
     } else if(publisher === 'dc') {
         dcDownloaded = true;
     }
-    
+
+    createHeroes(arrayHero, section);
+
 }
 
 let auxiliarMarvel = 0;
@@ -92,6 +91,10 @@ function createHeroes(arrayHero, section) {
         indice = indiceDC;
         auxiliarDC += 3;
     }
+
+    const loading = document.createElement('h1');
+    loading.textContent = 'Lost connection... Reload the page!';
+    section.appendChild(loading);
     
     while(indice < (3 + auxiliar)) {
         let heroArticle = document.createElement('article');
@@ -114,6 +117,8 @@ function createHeroes(arrayHero, section) {
             indiceDC++;
         }
     }
+
+    loading.parentNode.removeChild(loading);
 
     if(section === marvelSection) {
         auxiliarMarvel += 3;
