@@ -30,10 +30,10 @@ function publisher(allHeroes) {
     }
 }
 
-let button = document.querySelectorAll('button');
-for(i = 0; i < button.length; i++) {
-    button[i].addEventListener('click', showSection);
-}
+let buttonMarvel = document.querySelector('.marvelHeroes');
+let buttonDC = document.querySelector('.dcHeroes');
+buttonMarvel.addEventListener('click', showSection);
+buttonDC.addEventListener('click', showSection);
 
 function showSection(e) {
     initialText.style.display = 'none';
@@ -54,30 +54,120 @@ function showSection(e) {
 let marvelDownloaded = false;
 let dcDownloaded = false;
 
+
 function downloadHeroes(publisher) {
     let arrayHero = publisher === 'marvel' ? marvelHeroes : publisher === 'dc' ? dcHeroes : '';
     let section = publisher === 'marvel' ? marvelSection : publisher === 'dc' ? dcSection : '';
 
     if((marvelDownloaded && publisher === 'marvel') || dcDownloaded && publisher === 'dc') return;
 
-    for(let i = 0; i < arrayHero.length; i++) {
-        let heroArticle = document.createElement('article');
-        let heroImg = document.createElement('img');
-        heroImg.setAttribute('src', arrayHero[i].images.sm);
-        heroImg.setAttribute('width', '160px');
-        let paragraph = document.createElement('p');
-        paragraph.innerHTML = 
-        `Name: ${arrayHero[i].name} <br>
-        Gender: ${arrayHero[i].appearance.gender} <br>
-        Race: ${arrayHero[i].appearance.race === null ? 'Unknow' : arrayHero[i].appearance.race}`
-        heroArticle.appendChild(heroImg);
-        heroArticle.appendChild(paragraph);
-        section.appendChild(heroArticle);
-    }
+
+    createHeroes(arrayHero, section);
 
     if(publisher === 'marvel') {
         marvelDownloaded = true;
     } else if(publisher === 'dc') {
         dcDownloaded = true;
     }
+    
 }
+
+let auxiliarMarvel = 0;
+let indiceMarvel = 0;
+let auxiliarDC = 0;
+let indiceDC = 0;
+let auxiliar;
+let indice;
+
+/*problemas com a variavel pois está sendo a mesma para marvel e dc */
+
+function createHeroes(arrayHero, section) {
+    
+    if(section === marvelSection) {
+        auxiliar = auxiliarMarvel;
+        indice = indiceMarvel;
+        auxiliarMarvel += 3;
+    } else if(section === dcSection) {
+        auxiliar = auxiliarDC;
+        indice = indiceDC;
+        auxiliarDC += 3;
+    }
+    
+    while(indice < (3 + auxiliar)) {
+        let heroArticle = document.createElement('article');
+        let heroImg = document.createElement('img');
+        heroImg.setAttribute('src', arrayHero[indice].images.sm);
+        heroImg.setAttribute('width', '160px');
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = 
+        `Name: ${arrayHero[indice].name} <br>
+        Gender: ${arrayHero[indice].appearance.gender} <br>
+        Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        heroArticle.appendChild(heroImg);
+        heroArticle.appendChild(paragraph);
+        section.appendChild(heroArticle);
+
+        indice++;
+        if(section === marvelSection) {
+            indiceMarvel++;
+        } else if(section === dcSection) {
+            indiceDC++;
+        }
+    }
+
+    if(section === marvelSection) {
+        auxiliarMarvel += 3;
+    } else if(section === dcSection) {
+        auxiliarDC += 3;
+    }
+}
+
+function addHeroes(e) {
+
+    let publisher = e.target.getAttribute('class');
+    let arrayHero = publisher === 'addMarvel' ? marvelHeroes : publisher === 'addDC' ? dcHeroes : '';
+    let section = publisher === 'addMarvel' ? marvelSection : publisher === 'addDC' ? dcSection : '';
+
+    if(section === marvelSection) {
+        auxiliar = auxiliarMarvel;
+        indice = indiceMarvel;
+    } else if(section === dcSection) {
+        auxiliar = auxiliarDC;
+        indice = indiceDC;
+    }
+
+    if(indice >= arrayHero.length) return;
+    if(auxiliar > arrayHero.length) auxiliar = arrayHero.length;
+
+    while(indice < (auxiliar)) {
+        let heroArticle = document.createElement('article');
+        let heroImg = document.createElement('img');
+        heroImg.setAttribute('src', arrayHero[indice].images.sm);
+        heroImg.setAttribute('width', '160px');
+        let paragraph = document.createElement('p');
+        paragraph.innerHTML = 
+        `Name: ${arrayHero[indice].name} <br>
+        Gender: ${arrayHero[indice].appearance.gender} <br>
+        Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        heroArticle.appendChild(heroImg);
+        heroArticle.appendChild(paragraph);
+        section.appendChild(heroArticle);
+
+        indice++;
+        if(section === marvelSection) {
+            indiceMarvel++;
+        } else if(section === dcSection) {
+            indiceDC++;
+        }
+    }
+    if(section === marvelSection) {
+        auxiliarMarvel += 3;
+    } else if(section === dcSection) {
+        auxiliarDC += 3;
+    }
+}
+
+let buttonAddMarvel = document.querySelector('.addMarvel');
+let buttonAddDC = document.querySelector('.addDC');
+buttonAddMarvel.addEventListener('click', addHeroes);
+buttonAddDC.addEventListener('click', addHeroes);
