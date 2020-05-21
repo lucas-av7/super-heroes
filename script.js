@@ -124,6 +124,7 @@ function createHeroes(arrayHero, section) {
 
 function addHeroes(e) {
 
+    let buttonClicked = e.target;
     let publisher = e.target.getAttribute('class');
     let arrayHero = publisher === 'addMarvel' ? marvelHeroes : publisher === 'addDC' ? dcHeroes : '';
     let section = publisher === 'addMarvel' ? marvelSection : publisher === 'addDC' ? dcSection : '';
@@ -136,8 +137,14 @@ function addHeroes(e) {
         indice = indiceDC;
     }
 
-    if(indice >= arrayHero.length) return;
-    if(auxiliar > arrayHero.length) auxiliar = arrayHero.length;
+    if(indice >= arrayHero.length) {
+        buttonClicked.style.display = 'none';
+        return;
+    }
+    if(auxiliar > arrayHero.length) {
+    auxiliar = arrayHero.length;
+    buttonClicked.style.display = 'none';
+    }
 
     while(indice < (auxiliar)) {
         let heroArticle = document.createElement('article');
