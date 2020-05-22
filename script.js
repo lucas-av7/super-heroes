@@ -200,6 +200,7 @@ buttonAddMarvel.addEventListener('click', addHeroes);
 buttonAddDC.addEventListener('click', addHeroes);
 
 function profileHero(e) {
+    heroProfleSection.innerHTML = '<h1>Hero Profile</h1>';
     let indice = e.target.getAttribute('indice');
     let publisher = e.target.getAttribute('publisher');
     let arrayHero = publisher === 'marvel' ? marvelHeroes : publisher === 'dc' ? dcHeroes : '';
@@ -212,7 +213,14 @@ function profileHero(e) {
         paragraph.innerHTML = 
         `Name: ${arrayHero[indice].name} <br>
         Gender: ${arrayHero[indice].appearance.gender} <br>
-        Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race}`
+        Race: ${arrayHero[indice].appearance.race === null ? 'Unknow' : arrayHero[indice].appearance.race} <br>
+        Height: ${arrayHero[indice].appearance.height['1']} <br>
+        Weight: ${arrayHero[indice].appearance.weight['1']} <br>
+        Full name: ${arrayHero[indice].biography.fullName} <br>
+        Publisher: ${arrayHero[indice].biography.publisher} <br>
+        Alignment: ${arrayHero[indice].biography.alignment} <br>
+        Occupation: ${arrayHero[indice].work.occupation} <br>
+        First appearance: ${arrayHero[indice].biography.firstAppearance}`
         heroArticle.appendChild(heroImg);
         heroArticle.appendChild(paragraph);
         heroProfleSection.appendChild(heroArticle);
